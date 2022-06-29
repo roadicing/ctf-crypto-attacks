@@ -7,14 +7,13 @@ from tqdm import tqdm
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 
-# Set AES 128
+# Initialize the AES part.
 BLOCK_SIZE = 16
-
-# Initialize the AES-CBC part.
 key = os.urandom(BLOCK_SIZE)
 iv = os.urandom(BLOCK_SIZE)
+cipher = AES.new(key, AES.MODE_CBC, iv)
 
-# Returns true if unpad succeeds, false otherwise.
+# Return true if unpad succeeds, false otherwise.
 def oracle(ct, io):
     if io:
         '''
@@ -69,7 +68,6 @@ def cbc_padding_oracle_attack(ct, io):
 
 if __name__ == "__main__":
     # Our goal is to recover `pt` using `ct` and `oracle` function.
-    cipher = AES.new(key, AES.MODE_CBC, iv)
     pt = b"abcdefghijklmnopqrstuvwxyz"
     ct = cipher.encrypt(pad(pt, BLOCK_SIZE, "pkcs7"))
     ct = iv + ct
@@ -80,4 +78,6 @@ if __name__ == "__main__":
     '''
     io = None
     pt_recovered = cbc_padding_oracle_attack(ct, io)
+
+    # Test.
     print(unpad(pt_recovered, BLOCK_SIZE, "pkcs7") == pt)
