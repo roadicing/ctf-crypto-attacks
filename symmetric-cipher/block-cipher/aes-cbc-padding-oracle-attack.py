@@ -11,7 +11,6 @@ from Crypto.Util.Padding import pad, unpad
 BLOCK_SIZE = 16
 key = os.urandom(BLOCK_SIZE)
 iv = os.urandom(BLOCK_SIZE)
-cipher = AES.new(key, AES.MODE_CBC, iv)
 
 '''
 Return true if unpad succeeds, false otherwise.
@@ -70,6 +69,7 @@ def cbc_padding_oracle_attack(ct):
 if __name__ == "__main__":
     # Our goal is to recover `pt` by using `ct` and `oracle` function.
     pt = b"abcdefghijklmnopqrstuvwxyz"
+    cipher = AES.new(key, AES.MODE_CBC, iv)
     ct = cipher.encrypt(pad(pt, BLOCK_SIZE, "pkcs7"))
     ct = iv + ct
 
