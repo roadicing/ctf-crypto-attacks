@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# https://tailcall.net/posts/cracking-rngs-lcgs/
+
 import random
 from math import gcd
 from gmpy2 import invert
