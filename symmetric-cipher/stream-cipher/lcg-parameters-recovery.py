@@ -18,7 +18,7 @@ class LCG:
         self.state = (self.state * m + c) % p
         return self.state
 
-# use 6 outputs to recover `p`.
+# use 5 outputs to recover `p`.
 def recover_p(s):
     diffs = [s2 - s1 for s1, s2 in zip(s, s[1:])]
     zeroes = [t3 * t1 - t2 * t2 for t1, t2, t3 in zip(diffs, diffs[1:], diffs[2:])]
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     p = getPrime(NBITS)
     seed, m, c = [random.randint(1, p) for _ in range(3)]
     PRNG = LCG(seed, p, m, c)
-    s = [PRNG.next() for _ in range(6)]
+    s = [PRNG.next() for _ in range(5)]
 
     p_recovered = recover_p(s)
 
