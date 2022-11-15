@@ -37,7 +37,8 @@ def gen_p_minus_1_partial_smooth_prime(nbits, small_bound, big_bound):
             p = _p + 1
             return p
 
-# used when `p - 1` is partial smooth.
+# used when `p - 1` is partial smooth, where `factors` are relatively small factors of `p - 1`.
+# calculate `x` such that `g^x = y (mod p)`
 def dlp_pohlig_hellman_attack(p, g, y, factors):
     residues = []
     moduli = []
