@@ -38,7 +38,7 @@ def gen_p_minus_1_partial_smooth_prime(nbits, small_bound, big_bound):
             return p
 
 # used when `p - 1` is partial smooth, where `factors` are relatively small factors of `p - 1`.
-# calculate `x` such that `g^x = y (mod p)`
+# calculate `x` such that `g^x = y (mod p)`.
 def dlp_pohlig_hellman_attack(p, g, y, factors):
     residues = []
     moduli = []
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # solve DLP in GF(p), where `p - 1` is smooth enough.
     ans = discrete_log(Mod(y, p), Mod(g, p))
 
-    # test
+    # test.
     print(x == ans)
 
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     factors = [i for i, _ in list((p - 1).factor())][:-1]
     ans, moduli = dlp_pohlig_hellman_attack(p, g, y, factors)
 
-    # test
+    # test.
     print(x % lcm(moduli) == ans % lcm(moduli))
 
 
@@ -96,5 +96,5 @@ if __name__ == "__main__":
     # solve DLP in Zmod(n), where `p - 1` and `q - 1` are smooth enough.
     ans = crt([discrete_log(Mod(y, i), Mod(g, i)) for i in [p, q]], [Mod(g, i).multiplicative_order() for i in [p, q]])
 
-    # test
+    # test.
     print(x == ans)
