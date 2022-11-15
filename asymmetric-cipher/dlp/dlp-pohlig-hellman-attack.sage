@@ -62,7 +62,7 @@ if __name__ == "__main__":
     x = randint(1, p)
     y = pow(g, x, p)
 
-    # solve DLP in GF(p), where `p - 1` is smooth enough.
+    # solve DLP in `GF(p)`, where `p - 1` is smooth enough.
     ans = discrete_log(Mod(y, p), Mod(g, p))
 
     # test.
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     x = randint(1, p)
     y = pow(g, x, p)
 
-    # solve DLP in GF(p), where `p - 1` isn't smooth enough.
+    # solve DLP in `GF(p)`, where `p - 1` isn't smooth enough.
     factors = [i for i, _ in list((p - 1).factor())][:-1]
     ans, moduli = dlp_pohlig_hellman_attack(p, g, y, factors)
 
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     x = randint(1, p)
     y = pow(g, x, n)
 
-    # solve DLP in Zmod(n), where `p - 1` and `q - 1` are smooth enough.
+    # solve DLP in `Zmod(n)`, where `p - 1` and `q - 1` are smooth enough.
     ans = crt([discrete_log(Mod(y, i), Mod(g, i)) for i in [p, q]], [Mod(g, i).multiplicative_order() for i in [p, q]])
 
     # test.
